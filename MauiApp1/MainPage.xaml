@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.MainPage"
+             Title="メモ帳">
+
+    <Grid Padding="16"
+          RowSpacing="12"
+          RowDefinitions="Auto,*">
+        <HorizontalStackLayout Spacing="12">
+            <Button Text="新規"
+                    Command="{Binding AddNoteCommand}" />
+            <Button Text="保存"
+                    Command="{Binding SaveNoteCommand}" />
+            <Button Text="削除"
+                    Command="{Binding DeleteNoteCommand}"
+                    IsEnabled="{Binding HasSelection}" />
+        </HorizontalStackLayout>
+
+        <Grid Grid.Row="1"
+              RowSpacing="12"
+              RowDefinitions="220,*">
+            <Frame Padding="0"
+                   CornerRadius="12"
+                   HasShadow="False"
+                   BorderColor="{AppThemeBinding Light=#C7CBD1, Dark=#50555C}">
+                <CollectionView ItemsSource="{Binding Notes}"
+                                SelectedItem="{Binding SelectedNote, Mode=TwoWay}"
+                                SelectionMode="Single">
+                    <CollectionView.EmptyView>
+                        <Label Text="追加したメモはここに表示されます"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               TextColor="{AppThemeBinding Light=#6B6F75, Dark=#A9ADB3}" />
+                    </CollectionView.EmptyView>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="12"
+                                  RowSpacing="4"
+                                  ColumnSpacing="0"
+                                  RowDefinitions="Auto,Auto">
+                                <Label Text="{Binding Title}"
+                                       FontAttributes="Bold"
+                                       LineBreakMode="TailTruncation" />
+                                <Label Grid.Row="1"
+                                       Text="{Binding LastModified, StringFormat='更新: {0:yyyy/MM/dd HH:mm}'}"
+                                       FontSize="12"
+                                       TextColor="{AppThemeBinding Light=#6B6F75, Dark=#A9ADB3}" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Frame>
+
+            <Grid Grid.Row="1"
+                  RowSpacing="12"
+                  RowDefinitions="Auto,*">
+                <Entry Placeholder="タイトル"
+                       Text="{Binding NoteTitle}" />
+                <Editor Grid.Row="1"
+                        Text="{Binding NoteContent}"
+                        Placeholder="本文を入力してください"
+                        AutoSize="TextChanges"
+                        Keyboard="Text"
+                        MinimumHeightRequest="220" />
+            </Grid>
+        </Grid>
+    </Grid>
+
+</ContentPage>
