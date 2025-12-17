@@ -1,0 +1,1 @@
+-v --force --timestamp=none --sign - --entitlements /Users/Yuuki/RiderProjects/MauiApp1/MauiApp1/obj/Release/net10.0-maccatalyst/Entitlements.xcent /Users/Yuuki/RiderProjects/MauiApp1/MauiApp1/bin/Release/net10.0-maccatalyst/MauiApp1.app
